@@ -1,0 +1,20 @@
+lenguage: php
+
+dist: bionic
+
+php:
+ - 7.4
+
+services: 
+  - mysql
+
+bedore_script: 
+  - cp .env.example .env 
+  - mysql -e "create database ApoloMonitoring"
+  - composer self-update
+  - composer install --no-interaction --prefer-source 
+  - php artisan key:generate 
+  - php artisan migrate
+
+script: 
+  - vendor/bin/phpunit
